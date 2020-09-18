@@ -1,8 +1,6 @@
 from blog.models.mode import *
 from blog.models.modetool import Database
 
-from werkzeug.security import generate_password_hash,check_password_hash
-
 
 class UserTable(object):
 
@@ -25,7 +23,9 @@ class UserTable(object):
     
     def verify_user(self, name, password):
         usr = db.session.query(User).filter_by(name=name).first()
-        print(usr.check_password(password))
+        if usr:
+            return usr.check_password(password), usr.id
+        return False, -1
 
 
 class ArticlesTable(object):

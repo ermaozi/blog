@@ -14,6 +14,8 @@ __all__ = [
 ]
 
 class Base(object):
+    SECRET_KEY = ""
+
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
