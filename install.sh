@@ -111,7 +111,8 @@ install_mariadb(){
 	echo "修改项目中的配置文件"
 	cp -f $project_root/conf/flask/private/private_template.py $project_root/conf/flask/private/private.py  > /dev/null 2>&1
 	sed -i "s/ PASSWORD = .*  #/ PASSWORD = \'$db_pwd\'  #/" $project_root/conf/flask/private/private.py  > /dev/null 2>&1
-	
+        secret_key="$(python -c "import os,base64;print(base64.b64encode(os.urandom(32)).decode('utf-8'))")"
+        sed -i "s/ SECRET_KEY = .*  #/ SECRET_KEY = \'$secret_key\'  #/" /root/blog/conf/flask/private/private.py
 	echo "拉取 mariadb 镜像"
 	echo "过程受网速影响, 可能较慢, 请耐心等待"
 	docker pull mariadb  # 拉取超时可多试几次, 镜像拉取成功后可以通过 docker images 命令进行查看

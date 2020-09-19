@@ -14,7 +14,7 @@ __all__ = [
 ]
 
 class Base(object):
-    SECRET_KEY = ""
+    SECRET_KEY = ''  # 密钥, Flask 部分请求需要用到该密钥
 
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -39,7 +39,6 @@ class PriProduction(Base):
     SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
         DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
     )
-    SECRET_KEY = ""
 
 
 class PriDevelopment(Base):
@@ -54,7 +53,6 @@ class PriDevelopment(Base):
     SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
         DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
     )
-    SECRET_KEY = ""
 
 
 class PriTesting(Base):
@@ -69,5 +67,4 @@ class PriTesting(Base):
     SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
         DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
     )
-    SECRET_KEY = ""
 
