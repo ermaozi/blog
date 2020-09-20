@@ -10,6 +10,7 @@ import unittest
 from blog.models.exts import db, bcrypt
 from blog.models.modetool import *
 from blog.models.mode import *
+from blog.libs.db_api import * 
 
 
 config = 'conf.flask.config.DevelopmentConfig'
@@ -88,6 +89,19 @@ class TestTabal(unittest.TestCase):
 
     def test_001_user(self):
         pass
+
+    def test_002_articles(self):
+        articles_api = ArticlesTable()
+
+        data = {
+            "user_id": 1,
+            "title": "title",
+            "cover": "二猫子",
+            "content": "# 测试"
+        }
+
+        with app.app_context():
+            articles_api.add_articles(**data)
 
 
 if __name__ == '__main__':
