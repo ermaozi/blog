@@ -27,13 +27,16 @@ class UserTable(object):
             return usr.check_password(password), usr.id
         return False, -1
 
+    def get_user_info_for_id(self, id):
+        return self.db.select({"id": id})
+
 
 class ArticlesTable(object):
 
     def __init__(self) -> None:
         self.db = Database(Articles)
 
-    def add_articles(self, user_id, title, cover, content):
+    def add_articles(self, user_id, title, author, content, summary):
         """
         新增文章
         """
@@ -41,8 +44,9 @@ class ArticlesTable(object):
         db_data = {
             "user_id": user_id,
             "title": title,
-            "cover": cover,
-            "content": content
+            "author": author,
+            "content": content,
+            "summary": summary
         }
         self.db.insert(db_data)
 
@@ -55,11 +59,11 @@ class ArticlesTable(object):
 
     def get_articles_all_mininfo(self):
         """
-        查询所有文章的精简信息(id, user_id, title, cover, create_time, 
-                            views, comment_count, like_count)
+        查询所有文章的精简信息(id, user_id, title, author, create_time, 
+                            article_read, comment_count, thumb_up, summary)
         """
-        return self.db.select(result=["id", "user_id", "title", "cover", "create_time",
-                                   "views", "comment_count", "like_count"])
+        return self.db.select(result=["id", "user_id", "title", "author", "create_time",
+                                      "article_read", "comment_count", "thumb_up", "summary"])
 
     def get_articles_info_for_id(self, articles_id):
         """

@@ -55,7 +55,7 @@ class TestModeTools(unittest.TestCase):
             condition = {"name": name}
             result = ["id", "domainname"]
 
-            data = user_api.select(condition, result)[-1]
+            data = user_api.select(condition, result)
             id = data["id"]
             domainname = data["domainname"]
             self.assertEqual(domainname, domainname01)
@@ -73,17 +73,17 @@ class TestModeTools(unittest.TestCase):
             domainname02 = f"{random_str(10, string.digits)}.com"
             user_api.update({"id": id}, {"domainname": domainname02})
 
-            data = user_api.select(condition, result)[-1]
+            data = user_api.select(condition, result)
             domainname = data["domainname"]
             self.assertEqual(domainname, domainname02) 
 
             # 删除
-            data = user_api.select(condition, result)[-1]
-            domainname = data["domainname"]
-            user_api.delete(condition)
+            # data = user_api.select(condition, result)
+            # domainname = data["domainname"]
+            # user_api.delete(condition)
 
-            data = user_api.select(condition, result)
-            self.assertFalse(data) 
+            # data = user_api.select(condition, result)
+            # self.assertFalse(data) 
 
 class TestTabal(unittest.TestCase):
 
@@ -95,9 +95,10 @@ class TestTabal(unittest.TestCase):
 
         data = {
             "user_id": 1,
-            "title": "title",
-            "cover": "二猫子",
-            "content": "# 测试"
+            "title": "hello world4",
+            "author": "二猫子",
+            "content": "### hello world",
+            "summary": "测试 hello world4"
         }
 
         with app.app_context():

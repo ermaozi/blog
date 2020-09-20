@@ -29,7 +29,6 @@ def login_required(view_func):
 def create_token(data):
     s = Serializer(current_app.config["SECRET_KEY"], expires_in=3600)
     token = s.dumps(data).decode("ascii")
-    print(token)
     return token
 
 def verify_token(token):

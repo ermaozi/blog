@@ -34,12 +34,13 @@ class Articles(db.Model):
     id = db.Column(db.INTEGER, primary_key=True)
     user_id = db.Column(db.ForeignKey('user.id'))
     title = db.Column(db.String(80))
-    cover = db.Column(db.String(80))
+    author = db.Column(db.String(80))
+    summary = db.Column(db.String(300))
     content = db.Column(db.String(5000), unique=True)
     create_time = db.Column(db.DateTime, default=datetime.datetime.now())
-    views = db.Column(db.INTEGER, default=0)
+    article_read = db.Column(db.INTEGER, default=0)
     comment_count = db.Column(db.INTEGER, default=0)
-    like_count = db.Column(db.INTEGER, default=0)
+    thumb_up = db.Column(db.INTEGER, default=0)
 
 
 

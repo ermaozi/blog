@@ -73,6 +73,8 @@ class Database(object):
                     continue
                 tmp_dict[key] = data_dict.get(key)
             ret_list.append(tmp_dict)
+        if len(ret_list) == 1:
+            return ret_list[0]
         return ret_list
 
     def ad_select(self, condition: str, result: list) -> list:
