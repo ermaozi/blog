@@ -54,7 +54,6 @@ class ArticlesTable(object):
         """
         查询所有文章 id
         """
-
         return [i.get("id") for i in self.db.select(result=["id"])]
 
     def get_articles_all_mininfo(self):
@@ -64,6 +63,19 @@ class ArticlesTable(object):
         """
         return self.db.select(result=["id", "user_id", "title", "author", "create_time",
                                       "article_read", "comment_count", "thumb_up", "summary"])
+
+    def get_articles_mininfo_for_id(self, id_list: list):
+        """
+        根据 id 列表查询所有文章的精简信息(id, user_id, title, author, create_time, 
+                                      article_read, comment_count, thumb_up, summary)
+        """
+        mininfo_list = []
+        result = ["id", "user_id", "title", "author", "create_time",
+                                             "article_read", "comment_count", "thumb_up", "summary"]
+        for id in id_list:
+            mininfo = self.db.select({"id": id}, result)
+            mininfo_list.append(mininfo)
+        return mininfo_list
 
     def get_articles_info_for_id(self, articles_id):
         """

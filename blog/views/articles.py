@@ -10,56 +10,63 @@ user_api = UserTable()
 
 class AllArticles(MethodView):
     def get(self):
-        data_list = articles_aip.get_articles_all_mininfo()
+        current_page = int(request.args.get("current_page"))  # 当前页
+        all_id_list = articles_aip.get_articles_all_id()
+        max_pages = 6
+        all_id_list = [all_id_list[i:i+max_pages] for i in range(0,len(all_id_list),max_pages)]  # 分页
+        print(all_id_list)
+        pages_num = len(all_id_list)  # 总共页
+
+        data_list = articles_aip.get_articles_mininfo_for_id(all_id_list[current_page - 1])
+
+        # data_list = articles_aip.get_articles_all_mininfo()
         ret_list = []
         for data in data_list:
-            data["create_time"] = datetime.strftime(data["create_time"], "%Y-%m-%d %H:%M:%S")
+            # data["create_time"] = datetime.strftime(data["create_time"], "%Y-%m-%d %H:%M:%S")
+            data["icon"] = 'mdi-fountain-pen-tip'
             ret_list.append(data)
 
         return jsonify({
             'code': 200, 
-            'data': ret_list
+            'data': {
+                "articles": ret_list,
+                "pages_num": pages_num
+            }
         })
 
 class ArticlesForID(MethodView):
     def get(self):
         id = int(request.args.get("id"))
         all_id_list = articles_aip.get_articles_all_id()
+
         id_index = all_id_list.index(id)
+
         pre_name = "这是第一篇"
         pre_route = "javascript:;"
         next_name = "后面竟然没有了"
         next_route = "javascript:;"
-        if id_index == len(all_id_list) - 1:
-            pre_id = all_id_list[id_index - 1]
-            pre_data = articles_aip.get_articles_info_for_id(pre_id)
+        
+        pre_id = all_id_list[id_index - 1]
+        next_id = all_id_list[id_index + 1]
+        pre_data = articles_aip.get_articles_info_for_id(pre_id)
+        next_data = articles_aip.get_articles_info_for_id(next_id)
+
+        if pre_data:
             pre_name = pre_data["title"]
             pre_route = pre_id
-        elif id_index == 0:
-            next_id = all_id_list[id_index + 1]
-            next_data = articles_aip.get_articles_info_for_id(next_id)
-            next_name = next_data["title"]
-            next_route = next_id
-        else:
-            pre_id = all_id_list[id_index - 1]
-            pre_data = articles_aip.get_articles_info_for_id(pre_id)
-            pre_name = pre_data["title"]
-            pre_route = pre_id
-            next_id = all_id_list[id_index + 1]
-            next_data = articles_aip.get_articles_info_for_id(next_id)
+        if next_data:
             next_name = next_data["title"]
             next_route = next_id
         
         article_next_pre_data = [{
                 'type': 'pre',
                 'name': pre_name,
-                'route': pre_route
+                'id': pre_route
             }, {
                 'type': 'next',
                 'name': next_name,
-                'route': next_route
+                'id': next_route
             }]
-
 
         data = articles_aip.get_articles_info_for_id(id)
         user_info = user_api.get_user_info_for_id(data.get("user_id"))
