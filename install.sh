@@ -171,6 +171,7 @@ start_project(){
 
 	echo "启动 Uwsgi"
 	uwsgi --ini ./conf/uwsgi/uwsgi.ini > /dev/null 2>&1
+	sleep 5s
 	[[ $(lsof -i:8000 -t) ]] || error_log "启动 Uwsgi"
 	echo "Uwsgi 启动成功"
 
