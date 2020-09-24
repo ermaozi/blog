@@ -14,15 +14,10 @@ class AllArticles(MethodView):
         all_id_list = articles_aip.get_articles_all_id()
         max_pages = 6
         all_id_list = [all_id_list[i:i+max_pages] for i in range(0,len(all_id_list),max_pages)]  # 分页
-        print(all_id_list)
         pages_num = len(all_id_list)  # 总共页
-
         data_list = articles_aip.get_articles_mininfo_for_id(all_id_list[current_page - 1])
-
-        # data_list = articles_aip.get_articles_all_mininfo()
         ret_list = []
         for data in data_list:
-            # data["create_time"] = datetime.strftime(data["create_time"], "%Y-%m-%d %H:%M:%S")
             data["icon"] = 'mdi-fountain-pen-tip'
             ret_list.append(data)
 
@@ -39,7 +34,7 @@ class ArticlesForID(MethodView):
         id = int(request.args.get("id"))
         all_id_list = articles_aip.get_articles_all_id()
 
-        id_index = all_id_list.index(id)
+        id_index = all_id_list.index(id) - 1
 
         pre_name = "这是第一篇"
         pre_route = "javascript:;"

@@ -55,7 +55,7 @@ class TestModeTools(unittest.TestCase):
             condition = {"name": name}
             result = ["id", "domainname"]
 
-            data = user_api.select(condition, result)
+            data = user_api.select(condition, result)[0]
             id = data["id"]
             domainname = data["domainname"]
             self.assertEqual(domainname, domainname01)
@@ -73,7 +73,7 @@ class TestModeTools(unittest.TestCase):
             domainname02 = f"{random_str(10, string.digits)}.com"
             user_api.update({"id": id}, {"domainname": domainname02})
 
-            data = user_api.select(condition, result)
+            data = user_api.select(condition, result)[0]
             domainname = data["domainname"]
             self.assertEqual(domainname, domainname02) 
 
@@ -95,10 +95,32 @@ class TestTabal(unittest.TestCase):
 
         data = {
             "user_id": 1,
-            "title": "hello world4",
+            "title": "md测试",
             "author": "二猫子",
-            "content": "### hello world",
-            "summary": "测试 hello world4"
+            "content": """
+# 一级标题
+
+## 二级标题
+
+### 三级标题
+
+- 哈哈哈
+
+- 嘿嘿嘿
+
+1. 一一一
+
+2. 二二二
+
+``` python
+
+def hhh():
+    print(123)
+
+```
+
+""",
+            "summary": "最后的md测试, 测完我就睡觉去"
         }
 
         with app.app_context():

@@ -6,8 +6,8 @@ from blog.models.modetool import creat_db
 from blog.urls.main import init_url
 
 
-config = 'conf.flask.config.ProductionConfig'
-#config = 'conf.flask.config.DevelopmentConfig'
+# config = 'conf.flask.config.ProductionConfig'
+config = 'conf.flask.config.DevelopmentConfig'
 
 
 app = Flask(__name__,
