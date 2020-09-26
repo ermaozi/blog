@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import request, jsonify, render_template
 from flask.views import MethodView
 from blog.libs.db_api import ArticlesTable, UserTable
+from blog.libs.auth_api import login_required
 
 
 articles_aip = ArticlesTable()
@@ -18,7 +19,9 @@ class AllArticles(MethodView):
         data_list = articles_aip.get_articles_mininfo_for_id(all_id_list[current_page - 1])
         ret_list = []
         for data in data_list:
+            user_info = user_api.get_user_info_for_id(data.get("user_id"))
             data["icon"] = 'mdi-fountain-pen-tip'
+            data["author"] = user_info.get("nickname")
             ret_list.append(data)
 
         return jsonify({
@@ -30,6 +33,7 @@ class AllArticles(MethodView):
         })
 
 class ArticlesForID(MethodView):
+    @login_required
     def get(self):
         id = int(request.args.get("id"))
         all_id_list = articles_aip.get_articles_all_id()

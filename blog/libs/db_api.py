@@ -7,13 +7,12 @@ class UserTable(object):
     def __init__(self) -> None:
         self.db = Database(User)
 
-    def add_user(self, name, password, email, domainname="", profile_photo="",
+    def add_user(self, email, password, domainname="", profile_photo="",
                  birthday="", telephone="", nickname=""):
         db_data = {
-            "domainname": domainname,
-            "name": name,
-            "password": password,
             "email": email,
+            "password": password,
+            "domainname": domainname,
             "profile_photo": profile_photo,
             "birthday": birthday,
             "telephone": telephone,
@@ -21,14 +20,17 @@ class UserTable(object):
         }
         self.db.insert(db_data)
     
-    def verify_user(self, name, password):
-        usr = db.session.query(User).filter_by(name=name).first()
+    def verify_user(self, email, password):
+        usr = db.session.query(User).filter_by(email=email).first()
         if usr:
             return usr.check_password(password), usr.id
         return False, -1
 
     def get_user_info_for_id(self, id):
         return self.db.select({"id": id})[0]
+
+    def email_if_exist(self, email):
+        return bool(self.db.select({"email": email}, ["id"]))
 
 
 class ArticlesTable(object):
@@ -44,7 +46,6 @@ class ArticlesTable(object):
         db_data = {
             "user_id": user_id,
             "title": title,
-            "author": author,
             "content": content,
             "summary": summary
         }
