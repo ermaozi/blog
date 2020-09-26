@@ -38,11 +38,10 @@ class ArticlesTable(object):
     def __init__(self) -> None:
         self.db = Database(Articles)
 
-    def add_articles(self, user_id, title, author, content, summary):
+    def add_articles(self, user_id, title, content, summary):
         """
         新增文章
         """
-
         db_data = {
             "user_id": user_id,
             "title": title,
@@ -84,3 +83,6 @@ class ArticlesTable(object):
         通过文章 id 查询所有内容
         """
         return self.db.select(condition={"id": articles_id})[0]
+
+    def title_if_exist(self, title):
+        return bool(self.db.select({"title": title}, ["id"]))

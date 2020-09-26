@@ -94,7 +94,6 @@ class TestTabal(unittest.TestCase):
         data = {
             "user_id": 1,
             "title": "md测试2",
-            "author": "二猫子",
             "content": """
 # 一级标题
 

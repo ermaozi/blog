@@ -26,7 +26,10 @@ class Login(MethodView):
         if check_result:
             ret = {
                     'code': 200, 
-                    'data': {'token': create_token({"user_id": user_id})}
+                    'data': {
+                        'token': create_token({"user_id": user_id}),
+                        'user_id': user_id
+                    }
                 }
         else:
             ret = {
