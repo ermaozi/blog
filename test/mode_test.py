@@ -39,20 +39,18 @@ class TestModeTools(unittest.TestCase):
     def test_002_modeapi(self):
         with app.app_context():
             user_api = Database(User)
-            name = random_str(10)
             domainname01 = f"{random_str(10, string.digits)}.com"
-            # 添加
+            email = f"{random_str(10, string.digits)}@ermao.com"
             user_data = {
-                "name": name,
                 "password": "test_pwd",
-                "email": f"{random_str(10, string.digits)}@qq.com",
+                "email": email,
                 "domainname": domainname01,
                 "telephone": random_str(11, string.digits),
                 "nickname": "二猫子",
             }
             user_api.insert(user_data)
 
-            condition = {"name": name}
+            condition = {"email": email}
             result = ["id", "domainname"]
 
             data = user_api.select(condition, result)[0]
@@ -61,8 +59,8 @@ class TestModeTools(unittest.TestCase):
             self.assertEqual(domainname, domainname01)
 
             # 检查密码
-            self.assertTrue(user_api.check_password_for_name(name, "test_pwd"))
-            self.assertFalse(user_api.check_password_for_name(name, "test_pwd_123"))
+            self.assertTrue(user_api.check_password_for_name(email, "test_pwd"))
+            self.assertFalse(user_api.check_password_for_name(email, "test_pwd_123"))
 
             # 查询空字典
             data = user_api.select()
@@ -95,8 +93,7 @@ class TestTabal(unittest.TestCase):
 
         data = {
             "user_id": 1,
-            "title": "md测试",
-            "author": "二猫子",
+            "title": "md测试2",
             "content": """
 # 一级标题
 
@@ -120,7 +117,7 @@ def hhh():
 ```
 
 """,
-            "summary": "最后的md测试, 测完我就睡觉去"
+            "summary": "最后的md测试, 测完我就睡觉去1111"
         }
 
         with app.app_context():

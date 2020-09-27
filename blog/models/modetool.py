@@ -15,11 +15,11 @@ class Database(object):
     def __init__(self, db_obj) -> None:
         self.db_obj = db_obj()
 
-    def check_password_for_name(self, name, password) -> bool:
+    def check_password_for_name(self, email, password) -> bool:
         """
         检查密码
         """
-        tag = self.db_obj.query.filter_by(name=name).first()
+        tag = self.db_obj.query.filter_by(email=email).first()
         return tag.check_password(password)
 
     def insert(self, data_dict: dict):
