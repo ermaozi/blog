@@ -11,8 +11,10 @@ user_api = UserTable()
 
 class AllArticles(MethodView):
     def get(self):
+        articles_aip = ArticlesTable()
+        user_api = UserTable()
         current_page = int(request.args.get("current_page"))  # 当前页
-        all_id_list = articles_aip.get_articles_all_id()
+        all_id_list = articles_aip.get_articles_all_id()[::-1]
         max_pages = 6
         all_id_list = [all_id_list[i:i+max_pages] for i in range(0,len(all_id_list),max_pages)]  # 分页
         pages_num = len(all_id_list)  # 总共页
@@ -33,8 +35,9 @@ class AllArticles(MethodView):
         })
 
 class ArticlesForID(MethodView):
-    @login_required
     def get(self):
+        articles_aip = ArticlesTable()
+        user_api = UserTable()
         id = int(request.args.get("id"))
         all_id_list = articles_aip.get_articles_all_id()
 
@@ -82,9 +85,9 @@ class ArticlesForID(MethodView):
 class AddArticle(MethodView):
     @login_required
     def post(self):
+        articles_aip = ArticlesTable()
         data = request.get_data()
         data = json.loads(data.decode("UTF-8"))
-        print(data)
         try:
             title = data.get("title")
             if articles_aip.title_if_exist(title):

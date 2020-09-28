@@ -6,8 +6,6 @@ from blog.libs.auth_api import create_token
 import json
 
 
-user_api = UserTable()
-
 __all__ = [
     "Login", "Logout", "Register"
 ]
@@ -16,6 +14,7 @@ __all__ = [
 class Login(MethodView):
 
     def post(self):
+        user_api = UserTable()
         data = request.get_data()
         data = json.loads(data.decode("UTF-8"))
         elmail = data.get('email')
@@ -47,6 +46,7 @@ class Logout(MethodView):
 
 class Register(MethodView):
     def post(self):
+        user_api = UserTable()
         data = request.get_data()
         data = json.loads(data.decode("UTF-8"))
         try:

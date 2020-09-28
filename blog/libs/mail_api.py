@@ -11,7 +11,6 @@ import random
 
 
 
-
 class Mail(object):
     def __init__(self):
         """ 配置文件路径: blog/conf/flask/private/private.py """

@@ -18,6 +18,8 @@ class UserTable(object):
             "telephone": telephone,
             "nickname": nickname
         }
+        if not birthday:
+            del db_data["birthday"]
         self.db.insert(db_data)
     
     def verify_user(self, email, password):

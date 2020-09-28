@@ -89,39 +89,19 @@ class TestTabal(unittest.TestCase):
         pass
 
     def test_002_articles(self):
-        articles_api = ArticlesTable()
+        for i in range(2000):
+            print(i)
+            articles_api = ArticlesTable()
 
-        data = {
-            "user_id": 1,
-            "title": "md测试2",
-            "content": """
-# 一级标题
+            data = {
+                "user_id": 1,
+                "title": f"{random_str(4, [string.digits])}-测试-{i}",
+                "content": f"{random_str(10, string.digits)}",
+                "summary": f"{random_str(10, string.digits)}"
+            }
 
-## 二级标题
-
-### 三级标题
-
-- 哈哈哈
-
-- 嘿嘿嘿
-
-1. 一一一
-
-2. 二二二
-
-``` python
-
-def hhh():
-    print(123)
-
-```
-
-""",
-            "summary": "最后的md测试, 测完我就睡觉去1111"
-        }
-
-        with app.app_context():
-            articles_api.add_articles(**data)
+            with app.app_context():
+                articles_api.add_articles(**data)
 
 
 if __name__ == '__main__':
