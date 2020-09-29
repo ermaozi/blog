@@ -1,10 +1,11 @@
 # Flask + Vue = 个人博客
 
 ![](https://img.shields.io/tokei/lines/github/ermaozi/blog)
-![](https://img.shields.io/github/license/ermaozi/blog)
-![](https://img.shields.io/github/issues/ermaozi/blog)
 ![](https://img.shields.io/github/languages/code-size/ermaozi/blog)
 ![](https://img.shields.io/github/repo-size/ermaozi/blog)
+
+![](https://img.shields.io/github/license/ermaozi/blog)
+![](https://img.shields.io/github/issues/ermaozi/blog)
 ![](https://img.shields.io/github/last-commit/ermaozi/blog)
 
 ## 自动部署
