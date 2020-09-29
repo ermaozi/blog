@@ -40,18 +40,24 @@ class ArticlesForID(MethodView):
         user_api = UserTable()
         id = int(request.args.get("id"))
         all_id_list = articles_aip.get_articles_all_id()
-
-        id_index = all_id_list.index(id) - 1
+        id_index = all_id_list.index(id)
 
         pre_name = "这是第一篇"
         pre_route = "javascript:;"
         next_name = "后面竟然没有了"
         next_route = "javascript:;"
         
-        pre_id = all_id_list[id_index - 1]
-        next_id = all_id_list[id_index + 1]
-        pre_data = articles_aip.get_articles_info_for_id(pre_id)
-        next_data = articles_aip.get_articles_info_for_id(next_id)
+        pre_id = next_id = 0
+        if len(all_id_list) == 1:
+            pre_data = []
+        else:
+            pre_id = all_id_list[id_index - 1]
+            pre_data = articles_aip.get_articles_info_for_id(pre_id)
+        if len(all_id_list) == id_index + 1:
+            next_data = []
+        else:
+            next_id = all_id_list[id_index + 1]
+            next_data = articles_aip.get_articles_info_for_id(next_id)
 
         if pre_data:
             pre_name = pre_data["title"]

@@ -1,10 +1,10 @@
 # Flask + Vue = 个人博客
 
+![](https://img.shields.io/github/license/ermaozi/blog)
 ![](https://img.shields.io/tokei/lines/github/ermaozi/blog)
 ![](https://img.shields.io/github/languages/code-size/ermaozi/blog)
 ![](https://img.shields.io/github/repo-size/ermaozi/blog)
 
-![](https://img.shields.io/github/license/ermaozi/blog)
 ![](https://img.shields.io/github/issues/ermaozi/blog)
 ![](https://img.shields.io/github/last-commit/ermaozi/blog)
 
@@ -26,7 +26,7 @@ CentOS 7 环境中执行以下命令:
 - [x] 发表文章
 - [x] 浏览文章
 - [x] 分页功能
-- [ ] 删除文章
+- [x] 删除文章
 - [ ] 其他页面整改
 - [ ] 注册验证
 - [ ] 用户编辑资料
