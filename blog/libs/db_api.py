@@ -52,6 +52,12 @@ class ArticlesTable(object):
         }
         self.db.insert(db_data)
 
+    def del_articles(self, id):
+        self.db.delete({"id": id})
+
+    def get_articles_user_id(self, id):
+        return self.db.select(condition={"id": id}, result=["user_id"])
+
     def get_articles_all_id(self):
         """
         查询所有文章 id

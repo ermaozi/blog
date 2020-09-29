@@ -101,3 +101,25 @@ class AddArticle(MethodView):
         return jsonify({
             'code': 200
         })
+
+class DelArticle(MethodView):
+    @login_required
+    def post(self):
+        articles_aip = ArticlesTable()
+        data = request.get_data()
+        data = json.loads(data.decode("UTF-8"))
+        try:
+            user_id_data = articles_aip.get_articles_user_id(data.get("id"))
+            if not user_id_data:
+                raise Exception("文章 id 错误!")
+            if user_id_data[0].get("user_id") != int(data.get("userID")):
+                raise Exception("用户 id 错误, 不能删除别人的文章!")
+            articles_aip.del_articles(int(data.get("id")))
+        except Exception as err:
+            return jsonify({
+                'code': 500,
+                'message': str(err)
+            })
+        return jsonify({
+            'code': 200
+        })

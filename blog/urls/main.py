@@ -13,3 +13,4 @@ def init_url(app):
     app.add_url_rule('/articles/get_all_articles', view_func=AllArticles.as_view('get_all_articles'))
     app.add_url_rule('/articles/get_article_for_id', view_func=ArticlesForID.as_view('get_article_for_id'))
     app.add_url_rule('/articles/add_article', view_func=AddArticle.as_view('add_article'))
+    app.add_url_rule('/articles/del_article', view_func=DelArticle.as_view('del_article'))
